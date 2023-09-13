@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from scipy import signal
 from sklearn.datasets import load_boston
+from sklearn.datasets import fetch_california_housing
 from sklearn.preprocessing import MinMaxScaler, PolynomialFeatures
 from sklearn.datasets import make_blobs
 
@@ -27,13 +28,13 @@ def make_wave(n_samples=100):
     return x.reshape(-1, 1), y
 
 
-def load_extended_boston():
-    boston = load_boston()
-    X = boston.data
+def load_extended_housing():
+    housing = fetch_california_housing()
+    X = housing.data
 
-    X = MinMaxScaler().fit_transform(boston.data)
+    X = MinMaxScaler().fit_transform(housing.data)
     X = PolynomialFeatures(degree=2, include_bias=False).fit_transform(X)
-    return X, boston.target
+    return X, housing.target
 
 
 def load_citibike():
